@@ -1,4 +1,5 @@
 ﻿using CentiSoft.TimeReg.Repository.Interface;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -21,12 +22,12 @@ namespace CentiSoft.TimeReg.Repository.Model
 
         public bool Delete(string connStr)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public bool Update(string connStr)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
