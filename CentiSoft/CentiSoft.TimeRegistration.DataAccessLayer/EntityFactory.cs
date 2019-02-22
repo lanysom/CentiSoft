@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer
@@ -12,49 +13,57 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer
     /// <typeparam name="TEntity">The interface on which to recieve an entity</typeparam>
     public abstract class EntityFactory<TEntity>
     {
+        protected static Dictionary<string, EntityFactory<TEntity>> _factories = new Dictionary<string, EntityFactory<TEntity>>();
         protected Func<IDbConnection> OpenDbConnection { get; private set; }
+
+        public EntityFactory(Func<IDbConnection> dbConnectionFactory)
+        {
+            OpenDbConnection = dbConnectionFactory;
+        }
 
         /// <summary>
         /// Creates a factory for the specified interface
         /// </summary>
         /// <returns></returns>
-        public static EntityFactory<TEntity> Use()
+        public static EntityFactory<TEntity> Use(Func<IDbConnection> dbConnectionFactory)
         {
-            var entityType = typeof(TEntity);
+            if (!_factories.ContainsKey(typeof(TEntity).Name))
+            {
+                switch (typeof(TEntity).Name)
+                {
+                    case "IProject":
+                        _factories.Add(typeof(TEntity).Name, new ProjectFactory(dbConnectionFactory) as EntityFactory<TEntity>);
+                        break;
+                    case "ITask":
+                        _factories.Add(typeof(TEntity).Name, new TaskFactory(dbConnectionFactory) as EntityFactory<TEntity>);
+                        break;
+                    case "ICustomer":
+                        _factories.Add(typeof(TEntity).Name, new CustomerFactory(dbConnectionFactory) as EntityFactory<TEntity>);
+                        break;
+                    case "IDeveloper":
+                        _factories.Add(typeof(TEntity).Name, new DeveloperFactory(dbConnectionFactory) as EntityFactory<TEntity>);
+                        break;
+                    case "IClient":
+                        _factories.Add(typeof(TEntity).Name, new ClientFactory(dbConnectionFactory) as EntityFactory<TEntity>);
+                        break;
+                    default:
+                        throw new NotImplementedException("A factory for the requested interface is not implemented");
+                }
+            }
 
-            if (entityType is IClient)
-            {
-                return new ClientFactory() as EntityFactory<TEntity>;
-            }
-            else if (entityType is ICustomer)
-            {
-                return new CustomerFactory() as EntityFactory<TEntity>;
-            }
-            else if (entityType is IDeveloper)
-            {
-                return new DeveloperFactory() as EntityFactory<TEntity>;
-            }
-            else if (entityType is IProject)
-            {
-                return new ProjectFactory() as EntityFactory<TEntity>;
-            }
-            else if (entityType is ITask)
-            {
-                return new TaskFactory() as EntityFactory<TEntity>;
-            }
-            else
-            {
-                throw new NotImplementedException("A factory for the requested interface is not implemented");
-            }
+            return _factories[typeof(TEntity).Name];
         }
 
         /// <summary>
-        /// Adds a database connection factory to the entity factory
+        /// Adds a database connection factory method to the entity factory
         /// </summary>
         /// <param name="connectionFactory">A database connection factory method</param>
         public EntityFactory<TEntity> WithDatabaseConnection(Func<IDbConnection> connectionFactory)
         {
-            OpenDbConnection = connectionFactory;
+            if (OpenDbConnection == null)
+            {
+                OpenDbConnection = connectionFactory;
+            }
             return this;
         }
 

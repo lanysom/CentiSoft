@@ -10,7 +10,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Model
         {
         }
 
-        public int Id { get; private set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Token { get; set; }
         public IList<ICustomer> Customers { get; set; }

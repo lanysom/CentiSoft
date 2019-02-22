@@ -1,11 +1,16 @@
 ﻿using CentiSoft.TimeRegistration.DataAccessLayer.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
 {
     internal sealed class ClientFactory : EntityFactory<IClient>
     {
+        public ClientFactory(Func<IDbConnection> dbConnectionFactory) : base(dbConnectionFactory)
+        {
+        }
+
         public override IClient Create()
         {
             return new Client(OpenDbConnection)
