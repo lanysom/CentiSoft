@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CentiSoft.TimeReg.Repository
 {
-    public class DeveloperFactory : IEntityFactory<IDeveloper>
+    public sealed class DeveloperFactory : IEntityFactory<IDeveloper>
     {
         public IDeveloper Create()
         {

@@ -1,9 +1,11 @@
 ﻿using CentiSoft.TimeReg.Repository;
 using CentiSoft.TimeReg.Repository.Interface;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace TimeReg.Repository.Test
@@ -16,6 +18,11 @@ namespace TimeReg.Repository.Test
         {
             var services = new ServiceCollection();
             services.AddTransient<IEntityFactory<IClient>, ClientFactory>();
+            services.AddSingleton<IConfiguration>(s =>
+            {
+                var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+                return config.Build();
+            });
 
             var serviceProvider = services.BuildServiceProvider();
             _factory = serviceProvider.GetService<IEntityFactory<IClient>>();

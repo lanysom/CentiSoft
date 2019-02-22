@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CentiSoft.TimeReg.Repository
 {
-    public class ProjectFactory : IEntityFactory<IProject>
+    public sealed class ProjectFactory : IEntityFactory<IProject>
     {
         public IProject Create()
         {

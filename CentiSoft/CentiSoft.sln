@@ -3,13 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeReg", "TimeReg\TimeReg.csproj", "{986CCED9-102D-471E-AC64-522C8C681624}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeReg.Repository", "TimeReg.Repository\TimeReg.Repository.csproj", "{5025308B-868F-4D4B-A9F3-82C4A48EA9B4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeReg.Repository.Test", "TimeReg.Repository.Test\TimeReg.Repository.Test.csproj", "{9188E0A0-3654-4957-A64B-A2E14987F81A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeReg.Repository.DbUp", "TimeReg.Repository.DbUp\TimeReg.Repository.DbUp.csproj", "{E0AB500F-D8EC-47E5-AC2D-6F603B487699}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentiSoft.TimeRegistration.DataAccessLayer", "CentiSoft.TimeRegistration.DataAccessLayer\CentiSoft.TimeRegistration.DataAccessLayer.csproj", "{049E4FFE-DA8C-47FC-96BC-7E8394E1A91B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{986CCED9-102D-471E-AC64-522C8C681624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{986CCED9-102D-471E-AC64-522C8C681624}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{986CCED9-102D-471E-AC64-522C8C681624}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{986CCED9-102D-471E-AC64-522C8C681624}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5025308B-868F-4D4B-A9F3-82C4A48EA9B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5025308B-868F-4D4B-A9F3-82C4A48EA9B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5025308B-868F-4D4B-A9F3-82C4A48EA9B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5025308B-868F-4D4B-A9F3-82C4A48EA9B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9188E0A0-3654-4957-A64B-A2E14987F81A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9188E0A0-3654-4957-A64B-A2E14987F81A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9188E0A0-3654-4957-A64B-A2E14987F81A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9188E0A0-3654-4957-A64B-A2E14987F81A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0AB500F-D8EC-47E5-AC2D-6F603B487699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0AB500F-D8EC-47E5-AC2D-6F603B487699}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0AB500F-D8EC-47E5-AC2D-6F603B487699}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0AB500F-D8EC-47E5-AC2D-6F603B487699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{049E4FFE-DA8C-47FC-96BC-7E8394E1A91B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{049E4FFE-DA8C-47FC-96BC-7E8394E1A91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{049E4FFE-DA8C-47FC-96BC-7E8394E1A91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{049E4FFE-DA8C-47FC-96BC-7E8394E1A91B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
