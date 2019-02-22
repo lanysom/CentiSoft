@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CentiSoft.TimeRegistration.DataAccessLayer.Model;
+using System;
 using System.Collections.Generic;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
@@ -7,7 +8,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
     {
         public override ITask Create()
         {
-            throw new NotImplementedException();
+            return new Task();
         }
 
         public override IEnumerable<ITask> GetAll()

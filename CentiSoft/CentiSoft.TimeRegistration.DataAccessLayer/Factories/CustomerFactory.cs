@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CentiSoft.TimeRegistration.DataAccessLayer.Model;
+using System;
 using System.Collections.Generic;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
@@ -7,7 +8,10 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
     {
         public override ICustomer Create()
         {
-            throw new NotImplementedException();
+            return new Customer
+            {
+                Projects = new List<IProject>()
+            };
         }
 
         public override IEnumerable<ICustomer> GetAll()
