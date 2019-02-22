@@ -8,7 +8,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
     {
         public override ICustomer Create()
         {
-            return new Customer
+            return new Customer(OpenDbConnection)
             {
                 Projects = new List<IProject>()
             };

@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer.Model
 {
-    class Project : IProject
+    internal class Project : EntityBase, IProject
     {
+        public Project(Func<IDbConnection> connectionFactory) : base(connectionFactory)
+        {
+        }
+
         public int Id { get; private set; }
         public string Name { get; set; }
         public DateTime DueDate { get; set; }

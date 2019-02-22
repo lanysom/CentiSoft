@@ -7,7 +7,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
     {
         public override IProject Create()
         {
-            return new Project
+            return new Project(OpenDbConnection)
             {
                 Tasks = new List<ITask>()
             };

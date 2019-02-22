@@ -7,7 +7,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
     {
         public override IDeveloper Create()
         {
-            return new Developer
+            return new Developer(OpenDbConnection)
             {
                 Tasks = new List<ITask>()
             };

@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Data;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer.Model
 {
-    class Task : ITask
+    internal class Task : EntityBase, ITask
     {
+        public Task(Func<IDbConnection> connectionFactory) : base(connectionFactory)
+        {
+        }
+
         public int Id { get; private set; }
         public string Name { get; set; }
         public string Description { get; set; }

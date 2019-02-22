@@ -8,7 +8,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
     {
         public override ITask Create()
         {
-            return new Task();
+            return new Task(OpenDbConnection);
         }
 
         public override IEnumerable<ITask> GetAll()

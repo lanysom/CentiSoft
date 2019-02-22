@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer.Model
 {
-    class Client : IClient
+    internal class Client : EntityBase, IClient
     {
+        public Client(Func<IDbConnection> connectionFactory) : base(connectionFactory)
+        {
+        }
+
         public int Id { get; private set; }
         public string Name { get; set; }
         public string Token { get; set; }
