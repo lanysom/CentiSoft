@@ -2,7 +2,7 @@
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
 {
-    public sealed class DeveloperFactory : EntityFactory<IDeveloper>
+    internal sealed class DeveloperFactory : EntityFactory<IDeveloper>
     {
         public override IDeveloper Create()
         {

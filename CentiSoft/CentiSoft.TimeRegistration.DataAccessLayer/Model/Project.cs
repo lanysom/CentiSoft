@@ -1,9 +1,7 @@
-﻿using CentiSoft.TimeReg.Repository.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 
-namespace CentiSoft.TimeReg.Repository.Model
+namespace CentiSoft.TimeRegistration.DataAccessLayer.Model
 {
     class Project : IProject
     {
@@ -13,12 +11,12 @@ namespace CentiSoft.TimeReg.Repository.Model
         public ICustomer Customer { get; set; }
         public IList<ITask> Tasks { get; set; }
 
-        public bool Delete(string connStr)
+        public void Delete()
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(string connStr)
+        public void Update()
         {
             throw new NotImplementedException();
         }

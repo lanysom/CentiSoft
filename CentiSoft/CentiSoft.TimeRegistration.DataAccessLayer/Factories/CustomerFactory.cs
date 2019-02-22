@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
 {
-    public sealed class CustomerFactory : EntityFactory<ICustomer>
+    internal sealed class CustomerFactory : EntityFactory<ICustomer>
     {
         public override ICustomer Create()
         {

@@ -1,5 +1,4 @@
-﻿using CentiSoft.TimeReg.Repository.Model;
-using System;
+﻿using System;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer
 {

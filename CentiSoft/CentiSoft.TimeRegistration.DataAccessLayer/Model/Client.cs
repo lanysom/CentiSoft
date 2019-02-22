@@ -1,5 +1,4 @@
-﻿using CentiSoft.TimeReg.Repository.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer.Model
@@ -11,23 +10,12 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Model
         public string Token { get; set; }
         public IList<ICustomer> Customers { get; set; }
 
-        public IClient Create(string name, string token)
-        {
-            var client = new Client
-            {
-                Name = name,
-                Token = token,
-            };
-            
-            return client;
-        }
-
-        public void Delete(string connStr)
+        public void Delete()
         {
             throw new NotImplementedException();
         }
 
-        public void Update(string connStr)
+        public void Update()
         {
             throw new NotImplementedException();
         }

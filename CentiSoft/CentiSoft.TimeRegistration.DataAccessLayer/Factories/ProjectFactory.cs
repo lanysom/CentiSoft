@@ -2,7 +2,7 @@
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
 {
-    public sealed class ProjectFactory : EntityFactory<IProject>
+    internal sealed class ProjectFactory : EntityFactory<IProject>
     {
         public override IProject Create()
         {
