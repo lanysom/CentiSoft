@@ -9,7 +9,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
 {
     internal sealed class CustomerFactory : EntityFactory<ICustomer>
     {
-        public CustomerFactory(Func<IDbConnection> dbConnectionFactory) 
+        public CustomerFactory(Func<IDbConnection> dbConnectionFactory)
             : base(dbConnectionFactory, "SELECT Customer.Id, Customer.Name, Customer.Address, Customer.Address2, Customer.Zip, Customer.City, Customer.Country, Customer.Email, Customer.Phone, Customer.ClientId FROM Customer ")
         {
         }
@@ -31,9 +31,9 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
         public const int COUNTRY = 6;
         public const int EMAIL = 7;
         public const int PHONE = 8;
-        
-        
-                internal IEnumerable<ICustomer> GetByClient(int id)
+
+
+        internal IEnumerable<ICustomer> GetByClient(int id)
         {
             using (var conn = OpenDbConnection())
             {
@@ -70,7 +70,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
 
         private ICustomer Map(IDataReader reader, bool includeProject = true, bool includeClient = true)
         {
-            var customer =  new Customer(OpenDbConnection)
+            var customer = new Customer(OpenDbConnection)
             {
                 Id = Convert.ToInt32(reader[ID]),
                 Name = Convert.ToString(reader[NAME]),

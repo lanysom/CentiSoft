@@ -26,7 +26,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
         public const int NAME = 1;
         public const int EMAIL = 2;
 
-        internal IDeveloper GetByTaskId(int id)
+        internal IDeveloper GetByTask(int id)
         {
             using (var conn = OpenDbConnection())
             {

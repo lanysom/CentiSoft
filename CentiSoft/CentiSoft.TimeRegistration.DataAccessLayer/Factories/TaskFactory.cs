@@ -77,13 +77,13 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
             if (includeProject)
             {
                 var projectFactory = EntityFactory.Use<IProject>(OpenDbConnection) as ProjectFactory;
-                task.Project = projectFactory.GetByTaskId(task.Id);
+                task.Project = projectFactory.GetByTask(task.Id);
             }
 
             if (includeDeveloper)
             {
                 var developerFactory = EntityFactory.Use<IDeveloper>(OpenDbConnection) as DeveloperFactory;
-                task.Developer = developerFactory.GetByTaskId(task.Id);
+                task.Developer = developerFactory.GetByTask(task.Id);
             }
 
             return task;

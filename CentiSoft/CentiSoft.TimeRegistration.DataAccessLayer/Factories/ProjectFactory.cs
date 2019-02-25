@@ -30,7 +30,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
         private const int PROJECT_DUEDATE = 2;
         private const int CUSTOMER_ID = 3;
 
-        internal IProject GetByTaskId(int id)
+        internal IProject GetByTask(int id)
         {
             using (var conn = OpenDbConnection())
             {
