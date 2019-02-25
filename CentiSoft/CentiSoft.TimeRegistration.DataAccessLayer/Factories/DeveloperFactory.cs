@@ -10,7 +10,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
     internal sealed class DeveloperFactory : EntityFactory<IDeveloper>
     {
         public DeveloperFactory(Func<IDbConnection> dbConnectionFactory)
-            : base(dbConnectionFactory, "SELECT * FROM Developer d ")
+            : base(dbConnectionFactory, "SELECT Developer.Id, Developer.Name, Developer.Email FROM Developer ")
         {
         }
 
@@ -32,7 +32,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = $"{SelectSql} JOIN Task t ON t.DeveloperId = d.Id WHERE t.Id = @id;";
+                    cmd.CommandText = $"{SelectSql} JOIN Task ON Task.DeveloperId = Developer.Id WHERE Task.Id = @id;";
                     cmd.AddParameter("@id", id);
                     var reader = cmd.ExecuteReader();
                     if (reader.Read())

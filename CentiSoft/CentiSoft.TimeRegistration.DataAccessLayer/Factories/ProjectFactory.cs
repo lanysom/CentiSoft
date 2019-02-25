@@ -13,7 +13,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
         //private CustomerFactory _customerFactory;
 
         public ProjectFactory(Func<IDbConnection> dbConnectionFactory) 
-            : base(dbConnectionFactory, "SELECT p.Id, p.Name, p.DueDate, p.CustomerId FROM Project p ")
+            : base(dbConnectionFactory, "SELECT Project.Id, Project.Name, Project.DueDate, Project.CustomerId FROM Project ")
         {
         }
 
@@ -36,7 +36,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = $"{SelectSql} JOIN Task t ON t.ProjectId = p.Id WHERE t.Id = @id;";
+                    cmd.CommandText = $"{SelectSql} JOIN Task ON Task.ProjectId = Project.Id WHERE Task.Id = @id;";
                     cmd.AddParameter("@id", id);
                     var reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -54,7 +54,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = $"{SelectSql} WHERE p.CustomerId = @id;";
+                    cmd.CommandText = $"{SelectSql} WHERE Project.CustomerId = @id;";
                     cmd.AddParameter("@id", id);
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())

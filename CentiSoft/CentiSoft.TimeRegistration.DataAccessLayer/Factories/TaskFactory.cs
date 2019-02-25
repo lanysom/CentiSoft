@@ -9,7 +9,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
     internal sealed class TaskFactory : EntityFactory<ITask>
     {
         public TaskFactory(Func<IDbConnection> dbConnectionFactory)
-            : base(dbConnectionFactory, "SELECT t.Id, t.Name, t.Description, t.Created, t.Duration, t.ProjectId, t.DeveloperId FROM Task t ")
+            : base(dbConnectionFactory, "SELECT Task.Id, Task.Name, Task.Description, Task.Created, Task.Duration, Task.ProjectId, Task.DeveloperId FROM Task ")
         {
         }
 
@@ -32,7 +32,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = $"{SelectSql} WHERE ProjectId = @project_id;";
+                    cmd.CommandText = $"{SelectSql} WHERE Task.ProjectId = @project_id;";
                     var projectIdParam = cmd.CreateParameter();
                     projectIdParam.ParameterName = "@project_id";
                     projectIdParam.Value = id;
@@ -52,7 +52,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = $"{SelectSql} WHERE DeveloperId = @developer_id;";
+                    cmd.CommandText = $"{SelectSql} WHERE Task.DeveloperId = @developer_id;";
                     cmd.AddParameter("@developer_id", id);
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())

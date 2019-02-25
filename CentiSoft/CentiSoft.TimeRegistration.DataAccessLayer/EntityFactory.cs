@@ -17,6 +17,12 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer
             OpenDbConnection = dbConnectionFactory;
         }
 
+        /// <summary>
+        /// Gets the abstract factory for an entity
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="dbConnectionFactory">The factory method for opening a connection to the database</param>
+        /// <returns></returns>
         public static EntityFactory<TEntity> Use<TEntity>(Func<IDbConnection> dbConnectionFactory)
         {
             if (!_factories.ContainsKey(typeof(TEntity).Name))
@@ -39,7 +45,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer
                         _factories.Add(typeof(TEntity).Name, new ClientFactory(dbConnectionFactory));
                         break;
                     default:
-                        throw new NotImplementedException("A factory for the requested interface is not implemented");
+                        throw new NotImplementedException("An abstract factory class for the requested interface is not implemented");
                 }
             }
             return _factories[typeof(TEntity).Name] as EntityFactory<TEntity>;

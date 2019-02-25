@@ -10,7 +10,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
     internal sealed class ClientFactory : EntityFactory<IClient>
     {
         public ClientFactory(Func<IDbConnection> dbConnectionFactory) 
-            : base(dbConnectionFactory, "SELECT c.Id, c.Name, c.Token FROM Client c ")
+            : base(dbConnectionFactory, "SELECT Client.Id, Client.Name, Client.Token FROM Client ")
         {
         }
 
@@ -32,7 +32,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Factories
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = $"{SelectSql} JOIN Customer cu ON cu.ClientId = c.Id WHERE cu.Id = @id;";
+                    cmd.CommandText = $"{SelectSql} JOIN Customer ON Customer.ClientId = Client.Id WHERE Customer.Id = @id;";
                     cmd.AddParameter("@id", id);
                     var reader = cmd.ExecuteReader();
                     if (reader.Read())
