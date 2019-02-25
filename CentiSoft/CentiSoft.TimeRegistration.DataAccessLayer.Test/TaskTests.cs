@@ -10,19 +10,36 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Test
     [TestClass]
     public class TaskTests
     {
-        [TestMethod]
-        public void GetAllTest()
+        private EntityFactory<ITask> _factory;
+
+        [TestInitialize]
+        public void Setup()
         {
-            var factory = EntityFactory<ITask>.Use(() =>
+            _factory = EntityFactory.Use<ITask>(() =>
             {
                 var conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CentiSoft;Integrated Security=True;Pooling=False");
                 conn.Open();
                 return conn;
             });
+        }
 
+        [TestMethod]
+        public void CreateTest()
+        {
+            var task = _factory.Create();
 
-            var test = factory.GetAll().ToList();
+            Assert.IsNotNull(task);
+            Assert.IsInstanceOfType(task, typeof(ITask));
+            Assert.AreEqual(0, task.Id);            
+        }
 
+        [TestMethod]
+        public void GetAllTest()
+        {
+            var test = _factory.GetAll();
+
+            Assert.IsNotNull(test);
+            Assert.IsInstanceOfType(test, typeof(IEnumerable<ITask>));
         }
     }
 }

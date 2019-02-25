@@ -7,64 +7,56 @@ using System.Text;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer
 {
-    /// <summary>
-    /// Describes a factory for creating or retrieving entities from a database
-    /// </summary>
-    /// <typeparam name="TEntity">The interface on which to recieve an entity</typeparam>
-    public abstract class EntityFactory<TEntity>
+    public abstract class EntityFactory
     {
-        protected static Dictionary<string, EntityFactory<TEntity>> _factories = new Dictionary<string, EntityFactory<TEntity>>();
+        protected static Dictionary<string, EntityFactory> _factories = new Dictionary<string, EntityFactory>();
         protected Func<IDbConnection> OpenDbConnection { get; private set; }
 
-        public EntityFactory(Func<IDbConnection> dbConnectionFactory)
+        protected EntityFactory(Func<IDbConnection> dbConnectionFactory)
         {
             OpenDbConnection = dbConnectionFactory;
         }
 
-        /// <summary>
-        /// Creates a factory for the specified interface
-        /// </summary>
-        /// <returns></returns>
-        public static EntityFactory<TEntity> Use(Func<IDbConnection> dbConnectionFactory)
+        public static EntityFactory<TEntity> Use<TEntity>(Func<IDbConnection> dbConnectionFactory)
         {
             if (!_factories.ContainsKey(typeof(TEntity).Name))
             {
                 switch (typeof(TEntity).Name)
                 {
                     case "IProject":
-                        _factories.Add(typeof(TEntity).Name, new ProjectFactory(dbConnectionFactory) as EntityFactory<TEntity>);
+                        _factories.Add(typeof(TEntity).Name, new ProjectFactory(dbConnectionFactory));
                         break;
                     case "ITask":
-                        _factories.Add(typeof(TEntity).Name, new TaskFactory(dbConnectionFactory) as EntityFactory<TEntity>);
+                        _factories.Add(typeof(TEntity).Name, new TaskFactory(dbConnectionFactory));
                         break;
                     case "ICustomer":
-                        _factories.Add(typeof(TEntity).Name, new CustomerFactory(dbConnectionFactory) as EntityFactory<TEntity>);
+                        _factories.Add(typeof(TEntity).Name, new CustomerFactory(dbConnectionFactory));
                         break;
                     case "IDeveloper":
-                        _factories.Add(typeof(TEntity).Name, new DeveloperFactory(dbConnectionFactory) as EntityFactory<TEntity>);
+                        _factories.Add(typeof(TEntity).Name, new DeveloperFactory(dbConnectionFactory));
                         break;
                     case "IClient":
-                        _factories.Add(typeof(TEntity).Name, new ClientFactory(dbConnectionFactory) as EntityFactory<TEntity>);
+                        _factories.Add(typeof(TEntity).Name, new ClientFactory(dbConnectionFactory));
                         break;
                     default:
                         throw new NotImplementedException("A factory for the requested interface is not implemented");
                 }
             }
-
-            return _factories[typeof(TEntity).Name];
+            return _factories[typeof(TEntity).Name] as EntityFactory<TEntity>;
         }
+    }
 
-        /// <summary>
-        /// Adds a database connection factory method to the entity factory
-        /// </summary>
-        /// <param name="connectionFactory">A database connection factory method</param>
-        public EntityFactory<TEntity> WithDatabaseConnection(Func<IDbConnection> connectionFactory)
+    /// <summary>
+    /// Describes a factory for creating or retrieving entities from a database
+    /// </summary>
+    /// <typeparam name="TEntity">The interface on which to recieve an entity</typeparam>
+    public abstract class EntityFactory<TEntity> : EntityFactory
+    {
+        protected readonly string SelectSql;
+        
+        protected EntityFactory(Func<IDbConnection> dbConnectionFactory, string selectSql) : base (dbConnectionFactory)
         {
-            if (OpenDbConnection == null)
-            {
-                OpenDbConnection = connectionFactory;
-            }
-            return this;
+            SelectSql = selectSql;
         }
 
         /// <summary>
@@ -72,18 +64,55 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer
         /// </summary>
         /// <param name="id">The identity of the requested entity</param>
         /// <returns></returns>
-        public abstract TEntity GetById(int id);
+        public virtual TEntity GetById(int id)
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"{SelectSql} WHERE Id = @id;";
+
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        return Map(reader);
+                    }
+                    return default(TEntity);
+                }
+            }
+        }
 
         /// <summary>
         /// Get all entities from the database
         /// </summary>
         /// <returns></returns>
-        public abstract IEnumerable<TEntity> GetAll();
+        public virtual IEnumerable<TEntity> GetAll()
+        {
+            using (var conn = OpenDbConnection())
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = SelectSql;
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        yield return Map(reader);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Creates a new instance of an entity
         /// </summary>
         /// <returns></returns>
         public abstract TEntity Create();
+
+        /// <summary>
+        /// Maps an IDataReader to the entity of the factory
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        protected abstract TEntity Map(IDataReader reader);
     }
 }

@@ -1,25 +1,26 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 
 namespace CentiSoft.TimeRegistration.DataAccessLayer.Test
 {
     [TestClass]
-    public class ProjectTests
+    public class ClientTests
     {
-        private EntityFactory<IProject> _factory;
+        private EntityFactory<IClient> _factory;
 
         [TestInitialize]
         public void Setup()
         {
-            _factory = EntityFactory.Use<IProject>(() =>
+            _factory = EntityFactory.Use<IClient>(() =>
             {
                 var conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CentiSoft;Integrated Security=True;Pooling=False");
                 conn.Open();
                 return conn;
             });
-
         }
 
         [TestMethod]
@@ -28,16 +29,17 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Test
             var test = _factory.Create();
 
             Assert.IsNotNull(test);
-            Assert.IsInstanceOfType(test, typeof(IProject));
+            Assert.IsInstanceOfType(test, typeof(IClient));
+
         }
 
         [TestMethod]
         public void GetAllTest()
-        {            
-            var projects = _factory.GetAll();
+        {
+            var clients = _factory.GetAll();
 
-            Assert.IsNotNull(projects);
-            Assert.IsInstanceOfType(projects, typeof(IEnumerable<IProject>));
+            Assert.IsNotNull(clients);
+            Assert.IsInstanceOfType(clients, typeof(IEnumerable<IClient>));
         }
     }
 }
