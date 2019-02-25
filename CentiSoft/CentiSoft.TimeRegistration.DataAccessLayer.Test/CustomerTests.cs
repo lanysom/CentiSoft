@@ -40,5 +40,12 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Test
             Assert.IsNotNull(test);
             Assert.IsInstanceOfType(test, typeof(IEnumerable<ICustomer>));
         }
+
+        [TestMethod]
+        public void GetByIdTest()
+        {
+            var test = _factory.GetById(0);
+            Assert.IsNull(test);
+        }
     }
 }

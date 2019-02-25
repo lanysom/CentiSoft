@@ -1,4 +1,5 @@
 ﻿using CentiSoft.TimeRegistration.DataAccessLayer.Factories;
+using CentiSoft.TimeRegistration.DataAccessLayer.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -77,7 +78,7 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = $"{SelectSql} WHERE Id = @id;";
-
+                    cmd.AddParameter("@id", id);
                     var reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
