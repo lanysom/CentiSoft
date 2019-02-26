@@ -7,11 +7,23 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer.Model
 {
     internal abstract class EntityBase
     {
-        public Func<IDbConnection> OpenDbConnection { get; }
-
+        private readonly Func<IDbConnection> _connectionFactory;
+        
         protected EntityBase(Func<IDbConnection> connectionFactory)
         {
-            OpenDbConnection = connectionFactory;
+            _connectionFactory = connectionFactory;
+        }
+
+        protected IDbConnection OpenDbConnection()
+        {
+            var conn = _connectionFactory();
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+
+            return conn;
         }
     }
 }

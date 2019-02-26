@@ -1,0 +1,33 @@
+﻿@model CentiSoft.TimeRegistration.DataAccessLayer.IClient
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>@Model.Name</h3>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Zip</th>
+            <th scope="col">City</th>
+            <th scope="col">Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Address</td>
+                <td>@item.Zip</td>
+                <td>@item.City</td>
+                <td>@item.Phone</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

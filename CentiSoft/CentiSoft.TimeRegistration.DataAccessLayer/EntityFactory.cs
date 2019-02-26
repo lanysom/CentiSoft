@@ -11,11 +11,23 @@ namespace CentiSoft.TimeRegistration.DataAccessLayer
     public abstract class EntityFactory
     {
         protected static Dictionary<string, EntityFactory> _factories = new Dictionary<string, EntityFactory>();
-        protected Func<IDbConnection> OpenDbConnection { get; private set; }
+        private readonly Func<IDbConnection> _dbConnectionFactory;
 
         protected EntityFactory(Func<IDbConnection> dbConnectionFactory)
         {
-            OpenDbConnection = dbConnectionFactory;
+            _dbConnectionFactory = dbConnectionFactory;
+        }
+
+        protected IDbConnection OpenDbConnection()
+        {
+            var conn = _dbConnectionFactory();
+
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+
+            return conn;
         }
 
         /// <summary>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CentiSoft.TimeRegistration.DataAccessLayer.IClient>
+@{
+    ViewData["Title"] = "Time Registration";
+}
+
+<h3>Clients</h3>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td scope="col">@Html.DisplayFor(mi => item.Id)</td>
+                <td scope="col">@Html.DisplayFor(mi => item.Name)</td>
+                <td scope="col">
+                    @Html.ActionLink("Edit", "edit", "client", new { id = item.Id })
+                    @Html.ActionLink("Delete", "delete", "client", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td scope="col" colspan="3">
+                @Html.ActionLink("Create New", "edit", "client")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
